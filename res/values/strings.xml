@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LunchMate</string>
+    <string name="app_name">LunchMates</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_map">Restaurant Map</string>
+    <string name="title_activity_connection">Connection</string>
     <string name="front_query">What are you feeling for?</string>
     <string name="edit_suggestions">Suggestions</string>
     <string name="button_suggestions">Lunchify</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_waiting">Waiting for others&#8230;</string>
 
 </resources>

@@ -13,14 +13,26 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo" >
+
         <!-- Main Activity -->
         <activity
             android:name="com.example.lunchmate.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <!-- Connection Activity -->
+        <activity
+            android:name="com.example.lunchmate.ConnectionActivity"
+            android:label="@string/title_activity_connection" 
+           	android:parentActivityName="com.example.lunchmate.MainActivity" >
+           	<meta-data
+           	    android:name="android.support.PARENT_ACTIVITY"
+           	    android:value="com.example.lunchmate.MainActivity" />
         </activity>
         
         <!-- Map Activity -->
@@ -31,8 +43,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.lunchmate.MainActivity" />
-        </activity>	
-        
+        </activity>
     </application>
 
 </manifest>
