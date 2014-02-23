@@ -2,6 +2,7 @@ package com.example.lunchmate;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -39,10 +40,8 @@ public class MainActivity extends Activity {
     	EditText editText = (EditText) findViewById(R.id.edit_text_search);
     	String keywords = editText.getText().toString().trim().replace(' ', '+');
     	if (keywords != null && keywords.isEmpty() != true) {
-    		String urlString = apiURL + "what=" + keywords + "restaurants+lunch+food&where=Toronto" 
-    				+ "&pgLen=2&dist=5" + "&fmt=JSON" + "&apikey=" + apiKey + "&UID=1";
-    		//Intent i = new Intent(this, MapActivity.class);
-    		//i.putExtra("urlString", urlString);
+    		String urlString = apiURL + "what=" + keywords + "+restaurants+lunch+food&where=Toronto" 
+    				+ "&pgLen=9&dist=5" + "&fmt=JSON" + "&apikey=" + apiKey + "&UID=143432";
     		new CallAPI().execute(urlString);
     	}
     }
@@ -83,19 +82,22 @@ public class MainActivity extends Activity {
 			
 			// Extract elements of JSON
 			try {
-				JSONArray jArray = result.getJSONArray("listings");
-				for (int i = 0; i < jArray.length(); i++) {
-					JSONObject jListing = jArray.getJSONObject(i);
-					String name = jListing.getString("name");
-					JSONObject addressJSON = jListing.getJSONObject("geoCode");
-					Log.d("SHsssssssIT", name);
-					listing[i*3] = name;
-					listing[i*3+1] = addressJSON.getString("latitude");
-					listing[i*3+2] = addressJSON.getString("longitude");
-				}
+				// Get all the returned listings
+				JSONArray jArray = result.getJSONArray("listings");	
 				
+				// Pick a random element from the listings
+				Random randGen = new Random();
+				int randomNum = randGen.nextInt(jArray.length());
+				JSONObject jListing = jArray.getJSONObject(randomNum);
+				
+				// Get coordinates of chosen listing to map
+				String name = jListing.getString("name");
+				JSONObject addressJSON = jListing.getJSONObject("geoCode");
+				listing[0] = name;
+				listing[1] = addressJSON.getString("latitude");
+				listing[2] = addressJSON.getString("longitude");
+			
 			} catch (Exception e) {
-				Log.d("DSADSDAS", "");
 				e.printStackTrace();
 			}
 			

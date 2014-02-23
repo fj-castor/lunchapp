@@ -1,13 +1,16 @@
 package com.example.lunchmate;
 
-import com.example.lunchmate.MainActivity;
-import com.example.lunchmate.R;
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends Activity {
 
@@ -18,16 +21,16 @@ public class MapActivity extends Activity {
         
         Intent intent = getIntent();
 		String[] listing = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
-		Double lat = Double.parseDouble(listing[2]);
-		Double lont = Double.parseDouble(listing[1]);
+		Double lat = Double.parseDouble(listing[1]);
+		Double lont = Double.parseDouble(listing[2]);
 		
 		TextView name = (TextView) findViewById(R.id.store_name);
 		name.setText(listing[0]);
         
         GoogleMap map = ((MapFragment) getFragmentManager()
                 .findFragmentById(R.id.my_map)).getMap();
-        LatLng area = new LatLng(lont, lat);
-
+        LatLng area = new LatLng(lat, lont);
+        
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 area, 16));
 
@@ -39,5 +42,11 @@ public class MapActivity extends Activity {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
                 .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(area));
+    }
+    
+    @Override
+    protected void onStop() {
+    	super.onStop();
+    	onDestroy();
     }
 }
