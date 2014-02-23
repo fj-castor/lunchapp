@@ -6,22 +6,33 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo" >
+        <!-- Main Activity -->
         <activity
             android:name="com.example.lunchmate.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Map Activity -->
+        <activity
+            android:name="com.example.lunchmate.MapActivity"
+            android:label="@string/title_activity_map"
+            android:parentActivityName="com.example.lunchmate.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.lunchmate.MainActivity" />
+        </activity>	
+        
     </application>
 
 </manifest>
